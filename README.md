@@ -1,4 +1,4 @@
-# ASM (2024) - Screen Recorder
+# ASR (2024) - Screen Recorder
 
 **Note: This project is one of my earlier projects from my programming days.**
 
