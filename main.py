@@ -1,9 +1,9 @@
-import tkinter as tk                        # Importing tkinter for GUI building
-from PIL import ImageGrab                   # Importing ImageGrab from the Python Imaging Library (PIL). It is used to capture the screen.
-import numpy as np                          # Importing numpy library and renaming it as np. It is commonly used for numerical operations in Python.
-import cv2                                  # Importing OpenCV library. It is used for computer vision tasks, image processing and video analysis.
-from win32api import GetSystemMetrics       # Importing GetSystemMetrics from the win32api module. It's used to get system metrics, like screen width and height for the system in use.
+import cv2
 import datetime
+import numpy as np
+import tkinter as tk
+from PIL import ImageGrab
+from win32api import GetSystemMetrics
 
 # Setting Dimensions:
 width = GetSystemMetrics(0)
@@ -14,45 +14,50 @@ time_label = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 file_name = f'ASR-{time_label}.mp4'
 
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-captured_video = None
+capturedVideo = None
 recording = False
 
-def start_recording():
-    global captured_video, recording
+def startRecording():
+    global capturedVideo, recording
     recording = True
-    captured_video = cv2.VideoWriter(file_name, fourcc, 20.0, (width, height))
+    capturedVideo = cv2.VideoWriter(file_name, fourcc, 20.0, (width, height))
 
-def stop_recording():
-    global captured_video, recording
+def stopRecording():
+    global capturedVideo, recording
     recording = False
-    cv2.destroyAllWindows()
-    if captured_video is not None:
-        captured_video.release()
+    if capturedVideo is not None:
+        capturedVideo.release()
 
-# GUI using tkinter
+# GUI 
 root = tk.Tk()
-root.title("ASM (2024)")
+root.title("ASR v2024.1.0.0 - Beta")
+root.iconbitmap("./assets/favicon.ico")
+root.configure(bg="#8e929c")
 
-start_button = tk.Button(root, text="Start Recording", command=start_recording)
-start_button.pack(pady=30)
+# Function to create button with white border
+def createButton(parent, text, command):
+    button = tk.Button(root,
+                       text=text, 
+                       fg="white", 
+                       bg="#13eb74" if text == "Start Recording" else "#b01c12",
+                       command=command, font=("Segoe Script", 30, "bold"))
+    button.pack(pady=50)
 
-stop_button = tk.Button(root, text="Stop Recording", command=stop_recording)
-stop_button.pack(pady=30)
+# Creating buttons
+createButton(root, "Start Recording", startRecording)
+createButton(root, "Stop Recording", stopRecording)
 
-def capture_screen():
-    global recording, captured_video
+def captureScreen():
+    global recording, capturedVideo
     if recording:
         img = ImageGrab.grab(bbox=(0, 0, width, height))
         img_np = np.array(img)
         img_final = cv2.cvtColor(img_np, cv2.COLOR_BGR2RGB)
-        cv2.imshow('ASM (2024) - by Arcus', img_final)
-        captured_video.write(img_final)
-        cv2.waitKey(1)
+        capturedVideo.write(img_final)
 
-    root.after(10, capture_screen)
+    root.after(10, captureScreen)
 
-# Start capturing screen
-capture_screen()
-root.state('zoomed')
-
-root.mainloop()
+if __name__ == "__main__":
+    captureScreen()
+    root.state('zoomed')
+    root.mainloop()

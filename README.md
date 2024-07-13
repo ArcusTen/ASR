@@ -4,12 +4,6 @@
 
 This is a simple screen recorder application built using Python with Tkinter for GUI and OpenCV for capturing and processing the screen frames. The application allows users to start and stop recording their screen activity and saves the recorded video in .mp4 format.
 
-## Features
-
-- Start and stop recording screen activity.
-- Automatically saves the recorded video with a timestamped filename.
-- User-friendly GUI interface.
-
 ## Requirements
 
 - Python 3.x
@@ -24,8 +18,9 @@ This is a simple screen recorder application built using Python with Tkinter for
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/DenialArcus/ASR
+git clone https://github.com/ArcusTen/ASR.git
 ```
+
 2. Install the required dependencies:
 
 ```bash
