@@ -31,19 +31,20 @@ def stopRecording():
 # GUI 
 root = tk.Tk()
 root.title("ASR v2024.1.0.0 - Beta")
-root.iconbitmap("./assets/favicon.ico")
+# root.iconbitmap("./assets/favicon.ico")
 root.configure(bg="#8e929c")
 
-# Function to create button with white border
+
 def createButton(parent, text, command):
     button = tk.Button(root,
                        text=text, 
                        fg="white", 
                        bg="#13eb74" if text == "Start Recording" else "#b01c12",
-                       command=command, font=("Segoe Script", 30, "bold"))
+                    #    command=command, font=("Segoe Script", 30, "bold"))
+                       command=command, font=("Poppins", 30, "bold"))
     button.pack(pady=50)
 
-# Creating buttons
+
 createButton(root, "Start Recording", startRecording)
 createButton(root, "Stop Recording", stopRecording)
 
